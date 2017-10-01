@@ -1,12 +1,19 @@
 <div class="blog-masthead">
     <div class="container">
         <nav class="nav blog-nav">
-            <a class="nav-link active" href="#">Home</a>
-            <a class="nav-link" href="#">New features</a>
-            <a class="nav-link" href="#">Press</a>
+            <a class="nav-link active" href="/">Home</a>
             @if(Auth::check())
                 <a class="nav-link ml-auto">Welcome {{Auth::user()->name }}</a>
-                <a class="nav-link ml-auto" href="/logout">Logout</a>
+                <a class="nav-link" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                   document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+            @else
+                <a class="nav-link ml-auto" href="{{route('login')}}">Login</a>
             @endif
         </nav>
     </div>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +18,7 @@
 
 <body>
 
-@include('layouts.nav');
+@include('layouts.nav')
 
 <div class="container">
 
@@ -33,7 +32,7 @@
 
 </div>
 
-@include('layouts.footer');
+@include('layouts.footer')
 
 </body>
 </html>

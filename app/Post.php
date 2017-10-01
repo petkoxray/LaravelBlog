@@ -4,9 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Post
+ *
+ * @property-read \App\User $user
+ * @mixin \Eloquent
+ */
 class Post extends Model
 {
     protected $guarded = [];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function comments()
     {
@@ -15,11 +26,9 @@ class Post extends Model
 
     public function addComment($body)
     {
-        $this->comments()->create(compact('body'));
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+        $this->comments()->create([
+            'body' => $body,
+            'user_id' => auth()->id()
+        ]);
     }
 }

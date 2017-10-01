@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.main')
 
 @section('content')
     <div class="col-sm-8 blog-main">
@@ -29,7 +29,7 @@
         <br>
         <ul>
             @foreach($post->comments as $comment)
-                <li>{{$comment->body}}</li>
+                <li>{{$comment->body}} by {{$comment->user->name}}</li>
             @endforeach
         </ul>
     </div>
