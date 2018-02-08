@@ -3,6 +3,13 @@
 @section('content')
     <div class="col-sm-8 blog-main">
         <h1>{{$post->title}}</h1>
+        @if(count($post->tags))
+            <span>Tags:</span>
+            @foreach($post->tags as $tag)
+                <a href="{{route('post_tags', $tag->name)}}"><span><em>{{$tag->name}}</em></span></a>
+            @endforeach
+        @endif
+        <hr>
         <p>
             {{$post->body}}
         </p>

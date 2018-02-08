@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Post
@@ -30,5 +31,28 @@ class Post extends Model
             'body' => $body,
             'user_id' => auth()->id()
         ]);
+    }
+
+    public function scopeFilter($query, $filters)
+    {
+        if (isset($filters['month'])) {
+            $query->whereMonth('created_at', Carbon::parse($filters['month'])->month);
+        }
+
+        if (isset($filters['year'])) {
+            $query->whereYear('created_at', $filters['year']);
+        }
+    }
+
+    public static function archives()
+    {
+        return Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
+            ->orderByRaw('min(created_at) desc')
+            ->groupBy('year', 'month')->get()->toArray();
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

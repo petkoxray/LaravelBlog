@@ -2,7 +2,8 @@
     <div class="container">
         <nav class="nav blog-nav">
             <a class="nav-link active" href="/">Home</a>
-            @if(Auth::check())
+            @auth
+                <a class="nav-link" href="{{ route('post_create')}}">Create Post</a>
                 <a class="nav-link ml-auto">Welcome {{Auth::user()->name }}</a>
                 <a class="nav-link" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
@@ -14,6 +15,7 @@
                 </form>
             @else
                 <a class="nav-link ml-auto" href="{{route('login')}}">Login</a>
+                <a class="nav-link" href="{{route('register')}}">Register</a>
             @endif
         </nav>
     </div>
